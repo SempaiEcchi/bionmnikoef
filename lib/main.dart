@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
+import 'newpage.dart';
 void main() => runApp(MyApp());
 class Math {
   double factorial(double n) {
     double total = 1.0;
     double i = 1.0;
-
     while (i <= n) {
       total = total * i;
       i = i + 1.0;
@@ -19,11 +20,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange,
       ),
-      home: MyHomePage(title: 'Racunanje faktorijela yea'),
+      home: MyHomePage(title: 'Binomni Koeficijent'),
     );
   }
 }
@@ -78,7 +78,22 @@ var rezultatdoljezagrade=gore-prvidolje;
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        leading: IconButton(icon: Icon(Icons.all_inclusive),onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NedaMiSe()),
+          );
+        } ,),
 
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.all_inclusive),onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Symbolab()),
+            );
+          }),
+        ],
         title: Text(widget.title),
       ),
       body: Center(
@@ -87,7 +102,7 @@ var rezultatdoljezagrade=gore-prvidolje;
 
 //          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(height: 100,),
+            Container(height: 30,),
             Text(result.toString(),textAlign: TextAlign.center ,style: TextStyle(fontSize: 25),),
 
 
@@ -109,6 +124,7 @@ var rezultatdoljezagrade=gore-prvidolje;
                           textAlign: TextAlign.center,
                           decoration: decoration,
                           controller: controller,
+                            keyboardType: TextInputType.number,
 
                         ),
                       ),
@@ -120,6 +136,7 @@ var rezultatdoljezagrade=gore-prvidolje;
                         textAlign: TextAlign.center,
                         decoration: decoration,
                         controller: controller2,
+                          keyboardType: TextInputType.number,
 
                       ),
                     ),
