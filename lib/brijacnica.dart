@@ -3,13 +3,18 @@ import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
 
 
 
-class NedaMiSe extends StatelessWidget {
+class Brijacnica extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Niggeroloy"),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50),
+        child: AppBar(
+          elevation: 20,
+          shape: buildAppBarShape(),
+          centerTitle: true,
+          title: Text("Bilješka"),
+        ),
       ),
       body: Center(
         child: ActionChip(
@@ -22,6 +27,7 @@ class NedaMiSe extends StatelessWidget {
       ),
     );
   }
+
 }
 
 class Symbolab extends StatelessWidget {
@@ -43,4 +49,17 @@ class Symbolab extends StatelessWidget {
 
     );
   }
+}
+
+
+
+
+
+RoundedRectangleBorder buildAppBarShape() {
+  return RoundedRectangleBorder(
+    borderRadius: BorderRadius.only(
+      bottomLeft: Radius.circular(33),
+
+    ),
+  );
 }
