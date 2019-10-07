@@ -15,12 +15,13 @@ class Factorial with ChangeNotifier {
   Factorial(this.result);
 
 
+//  getValue() => result;
+//  setValue(var tresult) => result = tresult;
 
 
   void calculate() {
       var gore = double.parse(controller.text);
       var prvidolje = double.parse(controller2.text);
-
       var rezultatdoljezagrade = gore - prvidolje;
 
       if (rezultatdoljezagrade < 0) {
@@ -29,7 +30,7 @@ class Factorial with ChangeNotifier {
         result = math.factorial(gore) /
             (math.factorial(prvidolje) * math.factorial(rezultatdoljezagrade));
       }
-
+      notifyListeners();
   }
 
 

@@ -1,6 +1,8 @@
 import 'package:binomnikoef/brijacnica.dart';
+import 'package:binomnikoef/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'myMath.dart';
 
 void main() => runApp(MyApp());
@@ -13,63 +15,54 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: MyCalculator(title: 'Binomial Coefficient'),
+      home: ChangeNotifierProvider<Factorial>(
+        builder: (_) => Factorial(0),
+    child: MyCalculator(title: "Binomial Coef",),
+    ),
     );
   }
 }
 
-class MyCalculator extends StatefulWidget {
+class MyCalculator extends StatelessWidget {
   MyCalculator({Key key, this.title}) : super(key: key);
 
   final String title;
 
-  @override
-  _MyCalculatorState createState() => _MyCalculatorState();
-}
 
-class _MyCalculatorState extends State<MyCalculator> {
   var result;
   Math math = Math();
-  final controller = TextEditingController();
-  final controller2 = TextEditingController();
-
+  var controller2 = TextEditingController();
+  var controller = TextEditingController();
   final decoration = InputDecoration(
       hintText: "number",
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20.0),
       ));
 
-  void calculate() {
-    setState(() {
-      var gore = double.parse(controller.text);
-      var prvidolje = double.parse(controller2.text);
-
-      var rezultatdoljezagrade = gore - prvidolje;
-
-      if (rezultatdoljezagrade < 0) {
-        result = "Error";
-      } else {
-        result = math.factorial(gore) /
-            (math.factorial(prvidolje) * math.factorial(rezultatdoljezagrade));
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+
+    final factoricalcoef = Provider.of<Factorial>(context);
+
+    void doOnPressed() {
+      factoricalcoef.calculate();
+      print(factoricalcoef.result);
+    }
+
+
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50),
         child: AppBar(
           elevation: 20,
           shape: buildAppBarShape(),
-          
           centerTitle: true,
-          leading: buildAction(context,Brijacnica()),
+          leading: buildAction(context, Brijacnica()),
           actions: <Widget>[
-            buildAction(context,Symbolab()),
+            buildAction(context, Symbolab()),
           ],
-          title: Text(widget.title),
+          title: Text(title),
         ),
       ),
       body: Center(
@@ -79,7 +72,7 @@ class _MyCalculatorState extends State<MyCalculator> {
               height: 30,
             ),
             Text(
-              result != null ? result.toString() : "",
+                factoricalcoef.result!=null?factoricalcoef.result.toString() : "",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 25),
             ),
@@ -90,14 +83,14 @@ class _MyCalculatorState extends State<MyCalculator> {
                   "(",
                   style: TextStyle(fontSize: 200),
                 ),
-                buildCalculatingArea(),
+              buildCalcArea(factoricalcoef),
                 Text(")", style: TextStyle(fontSize: 200)),
               ],
             ),
           ],
         ),
       ),
-      floatingActionButton: buildFloatingActionButton(),
+      floatingActionButton: buildFloatingActionButton(doOnPressed),
     );
   }
 
@@ -106,55 +99,62 @@ class _MyCalculatorState extends State<MyCalculator> {
 
 
 
-  Widget buildAction(BuildContext context, Widget widget ) {
-    return IconButton(
-          icon: Icon(Icons.all_inclusive),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => widget),
-            );
-          },
+  Column buildCalcArea(Factorial factoricalcoef) {
+    return Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 58.0),
+              child: Container(
+                height: 100,
+                width: 50,
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  decoration: decoration,
+                  controller: factoricalcoef.controller,
+                  keyboardType: TextInputType.number,
+                  onChanged: (number){factoricalcoef.calculate();},
+                ),
+              ),
+            ),
+            Container(
+              width: 50,
+              height: 100,
+              child: TextField(
+                textAlign: TextAlign.center,
+                decoration: decoration,
+                controller: factoricalcoef.controller2,
+                keyboardType: TextInputType.number,
+                onChanged: (number){factoricalcoef.calculate(); print(factoricalcoef.result); },
+
+              ),
+            ),
+          ],
         );
   }
 
 
-  Widget buildFloatingActionButton() {
-    return FloatingActionButton(
-      onPressed: calculate,
-      tooltip: 'Calculate',
-      child: Icon(Icons.priority_high),
+  Widget buildAction(BuildContext context, Widget widget) {
+    return IconButton(
+      icon: Icon(Icons.all_inclusive),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => widget),
+        );
+      },
     );
   }
 
 
-  Widget buildCalculatingArea() {
-    return Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 58.0),
-                    child: Container(
-                      height: 100,
-                      width: 50,
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        decoration: decoration,
-                        controller: controller,
-                        keyboardType: TextInputType.number,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 50,
-                    height: 100,
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      decoration: decoration,
-                      controller: controller2,
-                      keyboardType: TextInputType.number,
-                    ),
-                  ),
-                ],
-              );
+  Widget buildFloatingActionButton(Function func) {
+    return null;
+//    return FloatingActionButton(
+//      onPressed: func,
+//      tooltip: 'Calculate',
+//      child: Icon(Icons.priority_high),
+//    );
   }
+
+
 }
+

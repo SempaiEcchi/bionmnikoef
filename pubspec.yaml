@@ -14,13 +14,14 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_inappbrowser: ^1.2.1
   flutter_webview_plugin: 0.3.8
+  fl_chart: ^0.3.3
   provider: ^3.1.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -40,7 +41,10 @@ flutter_icons:
 
 # The following section is specific to Flutter.
 flutter:
-
+  fonts:
+    - family: Orbitron
+      fonts:
+        - asset: assets/Orbitron-Medium.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
