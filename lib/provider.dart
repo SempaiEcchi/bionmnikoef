@@ -11,6 +11,7 @@ class Factorial with ChangeNotifier {
   Factorial(this.result);
 
 //  getValue() => result;
+
 //  setValue(var tresult) => result = tresult;
 
   void calculate() {
