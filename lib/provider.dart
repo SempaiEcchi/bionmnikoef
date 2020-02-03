@@ -15,7 +15,9 @@ class Factorial with ChangeNotifier {
 
   void calculate() {
     var gore = double.parse(controller.text);
+
     var prvidolje = double.parse(controller2.text);
+
     var rezultatdoljezagrade = gore - prvidolje;
 
     if (rezultatdoljezagrade < 0) {
