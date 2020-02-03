@@ -6,7 +6,8 @@ class Math {
       total = total * i;
       i = i + 1.0;
     }
-
     return total;
   }
 }
+
+

@@ -68,3 +68,35 @@ RoundedRectangleBorder buildAppBarShape() {
     ),
   );
 }
+
+
+
+
+
+class Svile extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(50),
+          child: AppBar(
+            elevation: 20,
+            shape: buildAppBarShape(),
+            centerTitle: true,
+            title: Text("Franova radiona"),
+          ),
+        ),
+        body: ListView(
+          children: <Widget>[
+
+            Column(
+              children: <Widget>[
+
+
+              ],
+            )
+          ],
+        ));
+  }
+
+}

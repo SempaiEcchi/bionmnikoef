@@ -7,7 +7,6 @@ import 'myMath.dart';
 
 void main() => runApp(MyApp());
 
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -17,8 +16,10 @@ class MyApp extends StatelessWidget {
       ),
       home: ChangeNotifierProvider<Factorial>(
         builder: (_) => Factorial(0),
-    child: MyCalculator(title: "Binomial Coef",),
-    ),
+        child: MyCalculator(
+          title: "Binomial Coefficient",
+        ),
+      ),
     );
   }
 }
@@ -28,9 +29,9 @@ class MyCalculator extends StatelessWidget {
 
   final String title;
 
-
   var result;
   Math math = Math();
+  var controller3 = TextEditingController();
   var controller2 = TextEditingController();
   var controller = TextEditingController();
   final decoration = InputDecoration(
@@ -39,17 +40,20 @@ class MyCalculator extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.0),
       ));
 
+  final decoration2 = InputDecoration(
+      hintText: "Password",
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ));
+
   @override
   Widget build(BuildContext context) {
-
     final factoricalcoef = Provider.of<Factorial>(context);
 
     void doOnPressed() {
       factoricalcoef.calculate();
       print(factoricalcoef.result);
     }
-
-
 
     return Scaffold(
       appBar: PreferredSize(
@@ -72,7 +76,9 @@ class MyCalculator extends StatelessWidget {
               height: 30,
             ),
             Text(
-                factoricalcoef.result!=null?factoricalcoef.result.toString() : "",
+              factoricalcoef.result != null
+                  ? factoricalcoef.result.toString()
+                  : "",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 25),
             ),
@@ -83,9 +89,23 @@ class MyCalculator extends StatelessWidget {
                   "(",
                   style: TextStyle(fontSize: 200),
                 ),
-              buildCalcArea(factoricalcoef),
+                buildCalcArea(factoricalcoef),
                 Text(")", style: TextStyle(fontSize: 200)),
               ],
+            ),
+
+            //Svile dio
+
+            Container(
+              width: 100,
+              height: 100,
+              child: TextField(
+                textAlign: TextAlign.center,
+                decoration: decoration2,
+                controller: controller3,
+                onChanged: (text){goToSvile(controller3.text.toString(), context, Svile());},
+
+              ),
             ),
           ],
         ),
@@ -95,43 +115,53 @@ class MyCalculator extends StatelessWidget {
   }
 
 
+  void goToSvile(var pass, BuildContext context, Widget widget){
+
+      if(pass=="Svile"){
+        Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => widget),
+      );}
 
 
+  }
 
 
   Column buildCalcArea(Factorial factoricalcoef) {
     return Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 58.0),
-              child: Container(
-                height: 100,
-                width: 50,
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  decoration: decoration,
-                  controller: factoricalcoef.controller,
-                  keyboardType: TextInputType.number,
-                  onChanged: (number){factoricalcoef.calculate();},
-                ),
-              ),
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(top: 58.0),
+          child: Container(
+            height: 100,
+            width: 50,
+            child: TextField(
+              textAlign: TextAlign.center,
+              decoration: decoration,
+              controller: factoricalcoef.controller,
+              keyboardType: TextInputType.number,
+              onChanged: (number) {
+                factoricalcoef.calculate();
+              },
             ),
-            Container(
-              width: 50,
-              height: 100,
-              child: TextField(
-                textAlign: TextAlign.center,
-                decoration: decoration,
-                controller: factoricalcoef.controller2,
-                keyboardType: TextInputType.number,
-                onChanged: (number){factoricalcoef.calculate(); print(factoricalcoef.result); },
-
-              ),
-            ),
-          ],
-        );
+          ),
+        ),
+        Container(
+          width: 50,
+          height: 100,
+          child: TextField(
+            textAlign: TextAlign.center,
+            decoration: decoration,
+            controller: factoricalcoef.controller2,
+            keyboardType: TextInputType.number,
+            onChanged: (number) {
+              factoricalcoef.calculate();
+            },
+          ),
+        ),
+      ],
+    );
   }
-
 
   Widget buildAction(BuildContext context, Widget widget) {
     return IconButton(
@@ -145,16 +175,12 @@ class MyCalculator extends StatelessWidget {
     );
   }
 
-
   Widget buildFloatingActionButton(Function func) {
     return null;
-//    return FloatingActionButton(
-//      onPressed: func,
-//      tooltip: 'Calculate',
-//      child: Icon(Icons.priority_high),
-//    );
+    return FloatingActionButton(
+      onPressed: func,
+      tooltip: 'Calculate',
+      child: Icon(Icons.priority_high),
+    );
   }
-
-
 }
-

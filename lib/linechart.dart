@@ -69,7 +69,7 @@ class MyChart extends StatelessWidget {
                       showTitles: true,
                       textStyle: TextStyle(
                           fontSize: 10,
-                          color: Colors.purple,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold),
                       getTitles: (value) {
                         switch (value.toInt()) {

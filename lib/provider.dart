@@ -19,6 +19,7 @@ class Factorial with ChangeNotifier {
 //  setValue(var tresult) => result = tresult;
 
 
+
   void calculate() {
       var gore = double.parse(controller.text);
       var prvidolje = double.parse(controller2.text);
@@ -26,7 +27,8 @@ class Factorial with ChangeNotifier {
 
       if (rezultatdoljezagrade < 0) {
         result = "Error";
-      } else {
+      }
+      else {
         result = math.factorial(gore) /
             (math.factorial(prvidolje) * math.factorial(rezultatdoljezagrade));
       }

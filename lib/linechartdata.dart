@@ -15,7 +15,6 @@ List<FlSpot> spotsDataMilovac = [
   FlSpot(3, 2),
   FlSpot(4, 5),
   FlSpot(5, 10),
-//  FlSpot(6, 6.5),
 ];
 
 
@@ -27,7 +26,6 @@ List<FlSpot> spotsDataGillete = [
   FlSpot(3, 7),
   FlSpot(4, 2),
   FlSpot(5, -1),
-//  FlSpot(6, 6.5),
 ];
 
 List<FlSpot> buildDots() {
